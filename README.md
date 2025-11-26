@@ -63,10 +63,28 @@ LDR Features of LDR are as follows:
 
 
 ## PROGRAM:
+#include <LiquidCrystal.h>
+ // Change these pin numbers to match your Proteus LCD wiring LiquidCrystal lcd(12, 11, 10,8,7);
+ int ldrPin = A0; int ledPins[] = {2, 3, 4, 5, 6, 7}; // LEDs int ldrValue = 0; int threshold= 500;
+ void setup() { lcd.begin(16, 2); lcd.print("System Starting"); delay(2000); lcd.clear();
+ for (int i = 0; i < 6; i++) { pinMode(ledPins[i], OUTPUT); digitalWrite(ledPins[i], LOW); } }
+ void loop() { ldrValue = analogRead(ldrPin);
+ lcd.setCursor(0, 0); lcd.print("LDR: "); lcd.print(ldrValue); lcd.print(" "); // to clear extra digits
+ if (ldrValue < threshold) { lcd.setCursor(0, 1); lcd.print("LEDs: ON "); for (int i = 0; i < 6; i++) {
+ digitalWrite(ledPins[i], HIGH); } } else { lcd.setCursor(0, 1); lcd.print("LEDs: OFF "); for (int i = 0; i < 6; i++) {
+ digitalWrite(ledPins[i], LOW); } }
+ delay(500); }
+
 
 ## CIRCUIT DIAGRAM:
+<img width="952" height="681" alt="image" src="https://github.com/user-attachments/assets/08898523-b8e0-4d08-8371-f395215119fa" />
 
 ## OUTPUT:
+LDR OFF STATE:
+<img width="805" height="568" alt="image" src="https://github.com/user-attachments/assets/581cf7f4-902f-4c48-862f-5259ac0a3997" />
+
+LDR OFF STATE
+<img width="660" height="348" alt="image" src="https://github.com/user-attachments/assets/e277f4bd-39f3-4309-83d3-98ee460d21af" />
 
 ## RESULT:
 Thus the automatic light controller was designed and simulated using LDR and Arduino UNO controller.
